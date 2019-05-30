@@ -1,0 +1,74 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block body %}
+
+<section class="bg-5 h-500x main-slider pos-relative">
+    <div class="triangle-up pos-bottom"></div>
+    <div class="container h-100">
+        <div class="dplay-tbl">
+            <div class="dplay-tbl-cell center-text color-white pt-90">
+                <h2 class="mt-30 mb-15">Your Cart</h2>
+            </div><!-- dplay-tbl-cell -->
+        </div><!-- dplay-tbl -->
+    </div><!-- container -->
+</section>
+
+<div class="container">
+    <table id="cart" class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th style="width:60%">Food</th>
+                <th style="width:20%">Price</th>
+                <th style="width:20%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td data-th="Product">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <h4 class="nomargin"> {{ item.size }} {{ item.name }}</h4>
+                            {% if item.toppings %}
+                            {% for topping in item.toppings %}
+                            <div>
+                                <ul>
+                                    <li>{{ topping }}</li>
+                                </ul>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </td>
+                <td data-th="Price">${{ item.price|floatformat:'2' }}</td>
+                <td>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value={{ item.id }}>
+                        <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            {% if items|length > 0 %}
+            <tr>
+                <td colspan="2" class="hidden-xs"></td>
+                <td class="hidden-xs text-center"><strong>Total ${{ finalPrice }}</strong></td>
+                <td><a href="{% url 'sendOrder' %}" class="btn btn-success btn-block">Checkout <i
+                            class="fa fa-angle-right"></i></a></td>
+            </tr>
+            {% endif %}
+        </tfoot>
+    </table>
+</div>
+
+<script>
+    const foods = {{ items | safe }}
+</script>
+<script src="{% static 'common/scripts.js' %}"></script>
+
+{% endblock %}

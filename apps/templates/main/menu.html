@@ -1,0 +1,205 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block body %}
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel"
+    aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" method="POST" id="food-form">
+                    {% csrf_token %}
+                    <div class="modal-body" id="modal-body"></div>
+                    <div class="modal-footer">
+                        <div style="float:left;" id="price-shown"></div>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" form="food-form">Add to cart!</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="bg-5 h-500x main-slider pos-relative">
+    <div class="triangle-up pos-bottom"></div>
+    <div class="container h-100">
+        <div class="dplay-tbl">
+            <div class="dplay-tbl-cell center-text color-white pt-90">
+                <h5><b>THE BEST IN TOWN</b></h5>
+                <h2 class="mt-30 mb-15">Menu</h2>
+            </div><!-- dplay-tbl-cell -->
+        </div><!-- dplay-tbl -->
+    </div><!-- container -->
+</section>
+
+
+<section class="story-area left-text center-sm-text">
+    <div class="container">
+        <div class="heading">
+            <h3>Pizzas</h3>
+        </div>
+        <div class="heading">
+            <h4>Toppings</h4>
+        </div>
+        <div class="row">
+            {% for item in toppings %}
+            <div class="col-lg-3 col-md-4  col-sm-6 ">
+                <div class="center-text mb-30">
+                    <h5 class="mt-20">{{ item.name }}</h5>
+                </div>
+            </div>
+            {% endfor %}
+        </div><!-- row-->
+    </div><!-- container -->
+</section>
+
+<section class="bg-lite-blue">
+    <div class="container">
+        <div class="row">
+            {% for name, list in pizzas.items %}
+            <div class="col-md-6">
+                <div class="sided-90x mb-30 ">
+                    <div class="s-right">
+                        <h5 class="mb-10"><b>{{ name }}</b><input type="button"
+                                class="btn btn-primary btn-xs float-right add-to-cart"
+                                value="Customize and add to cart!" data-toggle="modal" data-target="#confirmationModal"
+                                name='{{ name }}' kind='pizza'>
+                        </h5>
+                        {% for pizza in list %}
+                        <p class="pr-70">{{ pizza.size }}: ${{ pizza.price|floatformat:'2' }} </p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div><!-- row -->
+    </div><!-- container -->
+</section>
+
+
+<section>
+    <div class="container">
+        <div class="heading mb-sm-10">
+            <h3>Subs</h3>
+        </div>
+        <div class="row">
+            {% for name, list in subs.items %}
+            <div class="col-md-6">
+                <div class="sided-90x mb-30 ">
+                    <div class="s-right">
+                        <h5 class="mb-10"><b>{{ name }}</b><input type="button"
+                                class="btn btn-primary btn-xs float-right add-to-cart"
+                                value="Customize and add to cart!" data-toggle="modal" data-target="#confirmationModal"
+                                name='{{ name }}' kind='sub'>
+                        </h5>
+                        {% for sub in list %}
+                        <p class="pr-70">{{ sub.size }}: ${{ sub.price|floatformat:'2' }} </p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div><!-- row -->
+    </div><!-- container -->
+</section>
+
+<section>
+    <div class="container">
+        <div class="heading mb-sm-10">
+            <h3>Pasta</h3>
+        </div>
+        <div class="row">
+            {% for name, list in pasta.items %}
+            <div class="col-md-6">
+                <div class="sided-90x mb-30 ">
+                    <div class="s-right">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="name" value="{{ name }}">
+                            <input type="hidden" name="kind" value="{{ list.kind }}">
+                            <h5 class="mb-10"><b>{{ name }}</b>
+                                <input type="submit" class="btn btn-primary btn-xs float-right" value="Add to cart!">
+                            </h5>
+                        </form>
+                        <p class="pr-70">${{ list.price|floatformat:'2' }} </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div><!-- row -->
+    </div><!-- container -->
+</section>
+
+<section>
+    <div class="container">
+        <div class="heading mb-sm-10">
+            <h3>Salads</h3>
+        </div>
+        <div class="row">
+            {% for name, list in salads.items %}
+            <div class="col-md-6">
+                <div class="sided-90x mb-30 ">
+                    <div class="s-right">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="name" value="{{ name }}">
+                            <input type="hidden" name="kind" value="{{ list.kind }}">
+                            <h5 class="mb-10"><b>{{ name }}</b>
+                                <input type="submit" class="btn btn-primary btn-xs float-right" value="Add to cart!">
+                            </h5>
+                        </form>
+                        <p class="pr-70">${{ list.price|floatformat:'2' }} </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div><!-- row -->
+    </div><!-- container -->
+</section>
+
+<section>
+    <div class="container">
+        <div class="heading mb-sm-10">
+            <h3>Dinner Platters</h3>
+        </div>
+        <div class="row">
+            {% for name, list in dinnerplatters.items %}
+            <div class="col-md-6">
+                <div class="sided-90x mb-30 ">
+                    <div class="s-right">
+                        <h5 class="mb-10"><b>{{ name }}</b><input type="button"
+                                class="btn btn-primary btn-xs float-right add-to-cart"
+                                value="Customize and add to cart!" data-toggle="modal" data-target="#confirmationModal"
+                                name='{{ name }}' kind='dinner platter'>
+                        </h5>
+                        {% for sub in list %}
+                        <p class="pr-70">{{ sub.size }}: ${{ sub.price|floatformat:'2' }} </p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div><!-- row -->
+    </div><!-- container -->
+</section>
+
+<!-- SCIPTS -->
+<script>
+    var toppings = {{ toppings | safe }}
+    var pizzas = {{ pizzas | safe }}
+    var subs = {{ subs | safe }}
+    var extraToppingsOnSub = {{ extraToppingsOnSub | safe }}
+    var pasta = {{ pasta | safe }}
+    var salads = {{ salads | safe }}
+    var dinnerplatters = {{ dinnerplatters | safe }}
+</script>
+<script src="{% static 'common/scripts.js' %}"></script>
+
+{% endblock %}

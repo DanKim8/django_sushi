@@ -1,0 +1,51 @@
+{% extends "auth/authbase.html" %}
+{% load static %}
+
+
+{% block body %}
+<div class="signup-form" id="content">
+    <form method="post">
+        {% csrf_token %}
+        <h2>Register</h2>
+        <p class="hint-text">Create your account. It's free and only takes a minute.</p>
+        {% if form.errors %}
+        {% for field in form %}
+        {% for error in field.errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+        {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="form-group">
+            <input type="name" class="form-control" name="first_name" placeholder="First Name" required="required">
+        </div>
+        <div class="form-group">
+            <input type="name" class="form-control" name="last_name" placeholder="Last Name" required="required">
+        </div>
+        <div class="form-group">
+            <input type="email" class="form-control" name="email" placeholder="Email" required="required">
+        </div>
+        <div class="form-group">
+            <input type="name" class="form-control" name="username" placeholder="Username" required="required">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="password1" placeholder="Password" required="required">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="password2" placeholder="Confirm Password"
+                required="required">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success btn-lg btn-block">Register Now</button>
+        </div>
+        <a class="helper" href="{% url 'signin' %}">Already have an account? Click here.</a>
+    </form>
+</div>
+
+{% endblock %}

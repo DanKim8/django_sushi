@@ -1,0 +1,29 @@
+{% extends "auth/authbase.html" %}
+{% load static %}
+
+
+{% block body %}
+<div class="signup-form" id="content">
+    <form action="{% url 'signin' %}" method="post">
+        {% csrf_token %}
+        <h2>Sign in</h2>
+        <p class="hint-text">Create your account. It's free and only takes a minute.</p>
+        {% if invalid is not none  %}
+        <p>
+            {{ invalid }}
+        </p>
+        {% endif %}
+        <div class="form-group">
+            <input type="name" class="form-control" name="username" placeholder="Username" required="required">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success btn-lg btn-block">Login</button>
+        </div>
+        <a class="helper" href="{% url 'signup' %}">Need an account? Click here.</a>
+    </form>
+</div>
+
+{% endblock %}

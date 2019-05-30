@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <title>Pinocchio's</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fonts/beyond_the_mountains-webfont.css' %}" type="text/css" />
+
+    <!-- Stylesheets -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link href="{% static 'fonts/ionicons.css' %}" rel="stylesheet">
+    <link href="{% static 'common/styles.css' %}" rel="stylesheet">
+</head>
+
+
+<body>
+    <header>
+        <div class="container">
+
+            <a class="menu-nav-icon" data-menu="#main-menu" href="#"><i class="ion-navicon"></i></a>
+
+            <ul class="main-menu font-mountainsre" id="main-menu">
+                <li><a href="{% url 'index' %}">HOME</a></li>
+                <li><a href="{% url 'menu' %}">MENU</a></li>
+                <li><a href="{% url 'cart' %}">SHOPPING CART</a></li>
+                <li><a href="{% url 'signout' %}">SIGN OUT</a></li>
+            </ul>
+
+            <div class="clearfix"></div>
+        </div>
+    </header>
+    {% block body %}
+    {% endblock %}
+</body>
