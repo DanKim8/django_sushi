@@ -7,3 +7,8 @@ from .models import Appetizer, Sushi, Sashimi, A_La_Carte, Rolls, Vegetarian_Rol
 
 def index(request):
     return render(request, "main/index.html")
+
+#def menu(request):
+    
+
+#def home(request):   
